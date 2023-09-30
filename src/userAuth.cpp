@@ -49,5 +49,17 @@ namespace UserAuth
         return DBops::getRowResult("SELECT memID FROM member WHERE uname = '" + uname + "' AND pass = '" + pass + "';");
     }
 
+    void changeUsername(std::string& uname, const std::string& memID)
+    {
+        std::cout << "Enter your new username: ";
+        std::getline(std::cin >> std::ws, uname);
+        DBops::getRowResult("UPDATE member SET uname = '" + uname + "' WHERE memID = '" + memID + "';");
+    }
 
+    void changePassword(std::string& pass, const std::string& memID)
+    {
+        std::cout << "Enter your new password: ";
+        std::getline(std::cin >> std::ws, pass);
+        DBops::getRowResult("UPDATE member SET pass = '" + pass + "' WHERE memID = '" + memID + "';");
+    }
 }

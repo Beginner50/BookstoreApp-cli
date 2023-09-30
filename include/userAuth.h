@@ -15,4 +15,6 @@ namespace UserAuth
     std::string getUsername();
     std::string getPassword();
     std::string getUserID(std::string& uname, std::string& pass);
+    void changeUsername(std::string& uname, const std::string& memID);
+    void changePassword(std::string& pass, const std::string& memID);
 }

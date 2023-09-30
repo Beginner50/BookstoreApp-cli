@@ -68,3 +68,15 @@ void User::displayBorrowedBooks()
         std::cout << book->bookID << ' ';
     std::cout << "\n\n";
 }
+
+std::string User::changeAndGetUsername()
+{
+    UserAuth::changeUsername(m_username, m_id);
+    return m_username;
+}
+
+std::string User::changeAndGetPassword()
+{
+    UserAuth::changePassword(m_password, m_id);
+    return m_password;
+}

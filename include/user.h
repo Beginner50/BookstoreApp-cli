@@ -25,6 +25,9 @@ public:
     bool hasBorrowed(const std::string& bookID);
     void displayBorrowedBooks();
 
+    std::string changeAndGetUsername();
+    std::string changeAndGetPassword();
+
 
 private:
     Library& libConsulted;

@@ -78,12 +78,14 @@ int main()
 
             if (choice == ProfileActions::changeUname)
             {
-                // user.reloadCredentials();
+                std::string newUname{ user.changeAndGetUsername() };
+                IO::changeUsername(newUname);
                 continue;
             }
             else if (choice == ProfileActions::changePass)
             {
-                // user.reloadCredentials();
+                std::string newPass{ user.changeAndGetPassword() };
+                IO::changePassword(newPass);
                 continue;
             }
             else if (choice == ProfileActions::libraryPage)

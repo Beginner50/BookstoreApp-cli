@@ -3,42 +3,58 @@
 #include <iostream>
 #include <functional>
 
-namespace IO
+class IO
 {
-    void getKeyboardInput(const std::string& message);
-    void clearScreenAndExecute(std::function<void()> fn);
-    std::string printCharSequence(char ch, int times);
-    void displayAuthFailureMessage(int attempts);
+public:
+    static void getKeyboardInput(const std::string& message);
+    static void clearScreenAndExecute(std::function<void()> fn);
+    static std::string printCharSequence(char ch, int times);
+    static void displayAuthFailureMessage(int attempts);
 
-    void initialiseLibraryPage(BookList* books, std::size_t maxTitleCnt);
-    void initialiseProfilePage(BorrowList* b_list, const std::string& memberID, const std::string& username, const std::string& password);
+    static void initialiseLibraryPage(BookList* books, std::size_t maxTitleCnt);
+    static void initialiseProfilePage(BorrowList* b_list, const std::string& memberID, const std::string& username, const std::string& password);
 
-    void showAuthenticationPage();
-    void showLibraryPage();
-    void showProfilePage();
+    static void showAuthenticationPage();
+    static void showLibraryPage();
+    static void showProfilePage();
 
-    void showAuthMenu();
-    void showLibMenu();
-    void showProfileMenu();
+    static void showAuthMenu();
+    static void showLibMenu();
+    static void showProfileMenu();
 
-    BookActions getChoice_libMenu();
-    AuthActions getChoice_authMenu();
-    ProfileActions getChoice_profileMenu();
+    static BookActions getChoice_libMenu();
+    static AuthActions getChoice_authMenu();
+    static ProfileActions getChoice_profileMenu();
 
-    void cyclePage_lib();
+    static void cyclePage_lib();
 
-    std::string getBorrowedBookID();
-    std::string getReturnedBookID();
+    static std::string getBorrowedBookID();
+    static std::string getReturnedBookID();
 
-    // Scoped variables (If you are asking why it's not a static class, shut up)
-    inline BookList* booksAll{ nullptr };
-    inline BorrowList* booksBorrowed{ nullptr };
+    static void changeUsername(std::string& uname);
+    static void changePassword(std::string& pass);
 
-    inline int pageNum{ 1 };
-    inline std::size_t maxTitleCount{};
+private:
+    static void clearInput();
 
-    inline std::string uname{};
-    inline std::string memID{};
-    inline std::string pass{};
-}
+    static bool validLibChoice(char ch);
+    static bool validAuthChoice(char ch);
+    static bool validProfileChoice(char ch);
+
+    static void displayInvalidInputErrorMessage();
+
+    static BookActions charToBookActions(char ch);
+    static AuthActions charToAuthActions(char ch);
+    static ProfileActions charToProfileActions(char ch);
+
+    static inline BookList* booksAll{ nullptr };
+    static inline BorrowList* booksBorrowed{ nullptr };
+
+    static inline int pageNum{ 1 };
+    static inline std::size_t maxTitleCount{};
+
+    static inline std::string uname{};
+    static inline std::string memID{};
+    static inline std::string pass{};
+};
 
