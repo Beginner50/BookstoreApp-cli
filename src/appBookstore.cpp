@@ -19,11 +19,6 @@ int authenticate(User& user)
     return AUTHENTICATION_SUCCESS;
 }
 
-void terminateEarly()
-{
-    DBops::closeConnection();
-    exit(1);
-}
 
 int main()
 {
@@ -51,21 +46,37 @@ int main()
             if (choice == AuthActions::logIn)
             {
                 if (authenticate(user) == AUTHENTICATION_FAILURE)
-                    terminateEarly();
+                {
+                    std::cout << "\nAuthentication Failure!\n";
+                    IO::getKeyboardInput("Press any key to continue...");
+                    continue;
+                }
                 authenticationStage = false;
 
                 IO::initialiseProfilePage(user.getBorrowList(), user.getID(), user.getUsername(), user.getPassword());
             }
             else if (choice == AuthActions::createAccount)
             {
-                user.createAccount();
+                if (user.createAccount())
+                    std::cout << "Account creation successful!\n";
                 IO::getKeyboardInput("Press any key to continue...");
                 continue;
             }
             else if (choice == AuthActions::deleteAccount)
-                break;
+            {
+                if (user.deleteAccount())
+                {
+                    std::cout << "Account deletion successful!\n";
+                    user.removeAllBooks();
+                    library.reloadBooks();
+                }
+                else
+                    std::cout << "Username does not match password!\nAccount deletion not authorised!\n";
+                IO::getKeyboardInput("Press any key to continue...");
+                continue;
+            }
             else if (choice == AuthActions::exitProgram)
-                terminateEarly();
+                break;
         }
 
         // Profile Menu Stage (After Library Stage)
@@ -89,9 +100,10 @@ int main()
                 continue;
             }
             else if (choice == ProfileActions::libraryPage)
+            {
                 profileMenuStage = false;
-            else if (choice == ProfileActions::exitProgram)
-                break;
+                continue;
+            }
         }
 
         // Library stage
@@ -159,9 +171,10 @@ int main()
             continue;
         }
         else if (choice == BookActions::exitLibrary)
+        {
             authenticationStage = true;
-        else if (choice == BookActions::exitProgram)
-            break;
+            continue;
+        }
 
         IO::getKeyboardInput("Press any key to continue...");
         system("clear");

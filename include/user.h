@@ -10,7 +10,9 @@ public:
     User(Library& lib) : libConsulted{ lib } {}
 
     bool logIn();
+
     bool createAccount();
+    bool deleteAccount();
 
     const std::string& getUsername();
     const std::string& getPassword();
@@ -21,6 +23,7 @@ public:
 
     void addBook(const std::string& bookID);
     void removeBook(const std::string& bookID);
+    void removeAllBooks();
 
     bool hasBorrowed(const std::string& bookID);
     void displayBorrowedBooks();

@@ -32,8 +32,6 @@ bool IO::validLibChoice(char ch)
 {
     switch (ch)
     {
-    case 'a':
-    case 'A':
     case 'b':
     case 'B':
     case 'R':
@@ -72,8 +70,6 @@ bool IO::validProfileChoice(char ch)
     case 'U':
     case 'p':
     case 'P':
-    case 'l':
-    case 'L':
     case 'q':
     case 'Q': return true;
     default: return false;
@@ -89,8 +85,6 @@ BookActions IO::charToBookActions(char ch)
 {
     switch (ch)
     {
-    case 'a':
-    case 'A': return BookActions::exitLibrary;
     case 'b':
     case 'B': return BookActions::borrowBook;
     case 'R':
@@ -101,7 +95,7 @@ BookActions IO::charToBookActions(char ch)
     case 'N': return BookActions::nextPage;
     case 'q':
     case 'Q':
-    default: return BookActions::exitProgram;
+    default: return BookActions::exitLibrary;
     }
 }
 
@@ -129,11 +123,9 @@ ProfileActions IO::charToProfileActions(char ch)
     case 'U':  return ProfileActions::changeUname;
     case 'p':
     case 'P':  return ProfileActions::changePass;
-    case 'l':
-    case 'L':  return ProfileActions::libraryPage;
     case 'q':
     case 'Q':
-    default: return ProfileActions::exitProgram;
+    default: return ProfileActions::libraryPage;
     }
 }
 BookActions IO::getChoice_libMenu()
@@ -313,15 +305,15 @@ void IO::showAuthMenu()
 void IO::showLibMenu()
 {
 
-    std::cout << "Borrow Book         (B)           Return Book  (R)\n"
-        << "Authentication Menu (A)           User Profile (P)\n"
-        << "Next Page           (N)           Quit         (Q)\n";
+    std::cout << "Borrow Book (B)    Return Book  (R)\n"
+        << "Next Page   (N)    User Profile (P)\n"
+        << "Quit        (Q)\n";
 }
 
 void IO::showProfileMenu()
 {
-    std::cout << "Change Username (U)       Change Password (P)\n"
-        << "Library Page    (L)       Quit            (Q)\n";
+    std::cout << "Change Username (U)    Change Password (P)\n"
+        << "Quit            (Q)\n";
 }
 
 void IO::cyclePage_lib()

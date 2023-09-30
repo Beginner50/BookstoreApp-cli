@@ -10,8 +10,7 @@ enum class BookActions
     returnBook,
     exitLibrary,
     openProfile,
-    nextPage,
-    exitProgram
+    nextPage
 };
 
 enum class AuthActions
@@ -26,8 +25,7 @@ enum class ProfileActions
 {
     changeUname,
     changePass,
-    libraryPage,
-    exitProgram
+    libraryPage
 };
 
 struct Book
