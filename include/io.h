@@ -11,7 +11,7 @@ public:
     static std::string printCharSequence(char ch, int times);
     static void displayAuthFailureMessage(int attempts);
 
-    static void initialiseLibraryPage(BookList* books, std::size_t maxTitleCnt);
+    static void initialiseLibraryPage(BookList_coreAttr* books_coreAttr, BookList_mutAttr* books_mutAttr, std::size_t maxTitleCnt);
     static void initialiseProfilePage(BorrowList* b_list, const std::string& memberID, const std::string& username, const std::string& password);
 
     static void showAuthenticationPage();
@@ -47,7 +47,9 @@ private:
     static AuthActions charToAuthActions(char ch);
     static ProfileActions charToProfileActions(char ch);
 
-    static inline BookList* booksAll{ nullptr };
+    static inline BookList_coreAttr* booksAll_coreAttr{ nullptr };
+    static inline BookList_mutAttr* booksAll_mutAttr{ nullptr };
+
     static inline BorrowList* booksBorrowed{ nullptr };
 
     static inline int pageNum{ 1 };

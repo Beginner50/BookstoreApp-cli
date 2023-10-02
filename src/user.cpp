@@ -8,7 +8,7 @@ bool User::logIn()
     if (m_id == "")
         return false;
 
-    getBooksBorrowed(libConsulted.m_booksAll, m_id);
+    m_booksBorrowed = getBooksBorrowed(libConsulted.m_booksAll_coreAttr, m_id);
     return true;
 }
 
@@ -47,14 +47,14 @@ const std::string& User::getPassword() { return m_password; }
 const std::string& User::getID() { return m_id; }
 BorrowList* User::getBorrowList() { return &m_booksBorrowed; }
 
-void User::getBooksBorrowed(BookList& bookList, std::string& memID)
+BorrowList User::getBooksBorrowed(BookList_coreAttr& bookList, std::string& memID)
 {
-    DBops::filterContainer(bookList, m_booksBorrowed, "SELECT bookID FROM borrow WHERE memID = '" + memID + "';");
+    return DBops::filterBooksCoreAttr(bookList, "SELECT bookID FROM borrow WHERE memID = '" + memID + "';");
 }
 
 void User::addBook(const std::string& bookID)
 {
-    for (auto& book : libConsulted.m_booksAll)
+    for (auto& book : libConsulted.m_booksAll_coreAttr)
         if (book.bookID == bookID)
         {
             m_booksBorrowed.push_back(&book);

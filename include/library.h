@@ -5,7 +5,9 @@ class User;
 class Library
 {
 private:
-    BookList m_booksAll{};
+    BookList_coreAttr m_booksAll_coreAttr{};
+    BookList_mutAttr m_booksAll_mutAttr{};
+
     BorrowList m_booksBorrowed{};
 
     std::size_t maxTitleCount{};
@@ -14,7 +16,6 @@ public:
     Library() { loadBooks(); }
 
     void loadBooks();
-    void reloadBooks();
 
     void addMember(std::string& memID, std::string& uname, std::string& password);
 
@@ -25,7 +26,9 @@ public:
     void renderAvailable(std::string& bookTitle);
     void renderUnavailable(std::string& bookTitle);
 
-    BookList* getAllBooks() { return &m_booksAll; }
+    BookList_coreAttr* getBooksAll_coreAttr() { return &m_booksAll_coreAttr; }
+    BookList_mutAttr* getBooksAll_mutAttr() { return &m_booksAll_mutAttr; }
+
     std::size_t getMaxTitleCount() { return maxTitleCount; }
 
     friend User;

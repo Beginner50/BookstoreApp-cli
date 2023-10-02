@@ -19,6 +19,9 @@ public:
 
     static std::string getRowResult(const std::string& query, int totalColumns = 1);
 
-    static void fillContainer(BookList& bookArr, const std::string& query, int totalColumns = 1);
-    static void filterContainer(BookList& inContainer, BorrowList& outContainer, const std::string& query);
+    static BookList_coreAttr fillBooksCoreAttr(const std::string& query, int totalColumns = 1);
+    static BookList_mutAttr fillBooksMutAttr(const std::string& query, int totalColumns = 1);
+
+    static BorrowList filterBooksCoreAttr(BookList_coreAttr& booksAll_coreAttr, const std::string& query);
 };
+

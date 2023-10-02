@@ -28,12 +28,22 @@ enum class ProfileActions
     libraryPage
 };
 
-struct Book
+/*
+    Book only stores immutable sections of a book object as represented in the database
+*/
+struct Book_coreAttr
 {
     std::string bookID{};
     std::string title{};
+};
+
+struct Book_mutAttr
+{
+    std::string bookID{};
     bool available{};
 };
 
-using BookList = std::vector<Book>;
-using BorrowList = std::list<Book*>;
+using BookList_coreAttr = std::vector<Book_coreAttr>;
+using BookList_mutAttr = std::vector<Book_mutAttr>;
+
+using BorrowList = std::list<Book_coreAttr*>;

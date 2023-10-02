@@ -19,7 +19,7 @@ public:
     const std::string& getID();
     BorrowList* getBorrowList();
 
-    void getBooksBorrowed(BookList& bookList, std::string& m_id);
+    BorrowList getBooksBorrowed(BookList_coreAttr& bookList, std::string& m_id);
 
     void addBook(const std::string& bookID);
     void removeBook(const std::string& bookID);

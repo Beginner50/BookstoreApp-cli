@@ -48,8 +48,10 @@ std::string DBops::getRowResult(const std::string& query, int totalColumns)
     return result;
 }
 
-void DBops::fillContainer(BookList& bookArr, const std::string& query, int totalColumns)
+BookList_coreAttr DBops::fillBooksCoreAttr(const std::string& query, int totalColumns)
 {
+    BookList_coreAttr bookArr{};
+
     while (true)
     {
         std::string result{ getRowResult(query, totalColumns) };
@@ -57,7 +59,7 @@ void DBops::fillContainer(BookList& bookArr, const std::string& query, int total
             break;
 
         int attrCounter{};
-        Book tempBook{};
+        Book_coreAttr tempBook{};
 
         for (char ch : result)
         {
@@ -70,26 +72,60 @@ void DBops::fillContainer(BookList& bookArr, const std::string& query, int total
                 tempBook.bookID += ch;
             else if (attrCounter == 1)
                 tempBook.title += ch;
-            else if (attrCounter == 2)
-                tempBook.available = ch == '1' ? true : false;
+
         }
         bookArr.push_back(tempBook);
     }
+    return bookArr;
 }
 
-void DBops::filterContainer(BookList& inContainer, BorrowList& outContainer, const std::string& query)
+BookList_mutAttr DBops::fillBooksMutAttr(const std::string& query, int totalColumns)
 {
+    BookList_mutAttr bookArr{};
+
+    while (true)
+    {
+        std::string result{ getRowResult(query, totalColumns) };
+        if (result == "")
+            break;
+
+        int attrCounter{};
+        Book_mutAttr tempBook{};
+
+        for (char ch : result)
+        {
+            if (ch == '%')
+            {
+                ++attrCounter;
+                continue;
+            }
+            else if (attrCounter == 0)
+                tempBook.bookID += ch;
+            else if (attrCounter == 1)
+                tempBook.available = (ch == '1' ? true : false);
+        }
+        bookArr.push_back(tempBook);
+    }
+    return bookArr;
+}
+
+
+BorrowList DBops::filterBooksCoreAttr(BookList_coreAttr& booksAll_coreAttr, const std::string& query)
+{
+    BorrowList borrowList{};
+
     while (true)
     {
         std::string filterCondition{ getRowResult(query) };
         if (filterCondition == "")
             break;
 
-        for (auto& content : inContainer)
+        for (auto& content : booksAll_coreAttr)
             if (content.bookID == filterCondition)
             {
-                outContainer.push_back(&content);
+                borrowList.push_back(&content);
                 break;
             }
     }
+    return borrowList;
 }

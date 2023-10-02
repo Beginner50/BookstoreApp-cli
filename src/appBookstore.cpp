@@ -30,10 +30,9 @@ int main()
     bool authenticationStage{ true };
     bool profileMenuStage{ false };
 
+    IO::initialiseLibraryPage(library.getBooksAll_coreAttr(), library.getBooksAll_mutAttr(), library.getMaxTitleCount());
     while (true)
     {
-        IO::initialiseLibraryPage(library.getAllBooks(), library.getMaxTitleCount());
-
         // Authentication stage
         if (authenticationStage)
         {
@@ -68,7 +67,6 @@ int main()
                 {
                     std::cout << "Account deletion successful!\n";
                     user.removeAllBooks();
-                    library.reloadBooks();
                 }
                 else
                     std::cout << "Username does not match password!\nAccount deletion not authorised!\n";
@@ -126,7 +124,6 @@ int main()
                 {
                     library.addBorrower(user.getID(), bookID);
                     user.addBook(bookID);
-                    library.reloadBooks();
                 }
                 else
                 {
@@ -151,7 +148,6 @@ int main()
                 {
                     library.removeBorrower(user.getID(), bookID);
                     user.removeBook(bookID);
-                    library.reloadBooks();
                 }
                 else
                 {

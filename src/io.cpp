@@ -205,9 +205,10 @@ void IO::getKeyboardInput(const std::string& message)
     std::cin.peek();
 }
 
-void IO::initialiseLibraryPage(BookList* books, std::size_t maxTitleCnt)
+void IO::initialiseLibraryPage(BookList_coreAttr* books_coreAttr, BookList_mutAttr* books_mutAttr, std::size_t maxTitleCnt)
 {
-    booksAll = books;
+    booksAll_coreAttr = books_coreAttr;
+    booksAll_mutAttr = books_mutAttr;
     maxTitleCount = maxTitleCnt;
 }
 
@@ -245,16 +246,21 @@ void IO::showLibraryPage()
         int upperBound{pageNum * 4 - 1};
         int count{0};
 
-    for (auto& book : *booksAll)
-    {
-        if (count >= lowerBound && count <= upperBound)
+        auto it1{booksAll_coreAttr->begin()};
+        auto it2{booksAll_mutAttr->begin()};
+        for (;it1 != booksAll_coreAttr->end(); ++it1, ++it2)
         {
-        std::cout << "| " << book.bookID << "   | " << book.title
-        << printCharSequence(' ', titleDisplayLength - book.title.length() - 1)
-        << " | " << (book.available == true ? "Yes       |\n" : "No        |\n");
+            Book_coreAttr book_coreAttr{*it1};
+            Book_mutAttr book_mutAttr{*it2};
+
+            if (count >= lowerBound && count <= upperBound)
+            {
+                std::cout << "| " << book_coreAttr.bookID << "   | " << book_coreAttr.title
+                << printCharSequence(' ', titleDisplayLength - book_coreAttr.title.length() - 1)
+                << " | " << (book_mutAttr.available == true ? "Yes       |\n" : "No        |\n");
+            }
+            ++count;
         }
-        ++count;
-    }
     } };
 
     std::function<void()> printTail{ [=]() {
@@ -319,7 +325,7 @@ void IO::showProfileMenu()
 void IO::cyclePage_lib()
 {
     ++pageNum;
-    if (static_cast<unsigned int>(pageNum) > (booksAll->size() / 4) + 1)
+    if (static_cast<unsigned int>(pageNum) > (booksAll_coreAttr->size() / 4) + 1)
         pageNum = 1;
 }
 
