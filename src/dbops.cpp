@@ -2,7 +2,7 @@
 
 void DBops::initialise()
 {
-    sqlite3_open("/home/prashant/Desktop/projects/bookstore/db/bookstoreDB.db", &db_);
+    sqlite3_open("../db/bookstoreDB.db", &db_);
 }
 
 void DBops::closeConnection() {
