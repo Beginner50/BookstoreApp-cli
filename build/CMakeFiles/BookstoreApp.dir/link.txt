@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/BookstoreApp.dir/src/appBookstore.cpp.o CMakeFiles/BookstoreApp.dir/src/dbops.cpp.o CMakeFiles/BookstoreApp.dir/src/io.cpp.o CMakeFiles/BookstoreApp.dir/src/library.cpp.o CMakeFiles/BookstoreApp.dir/src/userAuth.cpp.o CMakeFiles/BookstoreApp.dir/src/user.cpp.o -o BookstoreApp  /usr/lib/x86_64-linux-gnu/libsqlite3.so 
