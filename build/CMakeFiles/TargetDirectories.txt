@@ -1,0 +1,3 @@
+/home/prashant/Desktop/BookstoreApp-cli/build/CMakeFiles/BookstoreApp.dir
+/home/prashant/Desktop/BookstoreApp-cli/build/CMakeFiles/edit_cache.dir
+/home/prashant/Desktop/BookstoreApp-cli/build/CMakeFiles/rebuild_cache.dir
