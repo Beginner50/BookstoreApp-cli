@@ -12,10 +12,15 @@ The cli bookstore application is a simple project that demonstrates the extent o
 ## Installation
 The program will have to be compiled from source.
 ### Windows
-Unfortunately, since windows requires the user to download the precompiled binaries for sqlite libraries first, I am unsure
-if the CMakeLists.txt file will work as intended. I don't have windows either and so I can't test it out.
+If you are using visual studio, then it should probably work fine. Make sure to generate import files from sqlite def first.
 
-I will port the application to windows one day...
+1) Otherwise, first install a suitable c/cpp compiler: MinGW
+2) Then, install cmake and navigate to the build directory
+3) Navigate to sqlitedll and generate import files from sqlite.def `dlltool -d sqlite3.def -l libsqlite3.a`
+4) Open a terminal in the build directory
+5) Make sure the environment variable for MinGW libraries are set and run
+   `cmake -G "MinGW Makefiles" ..`
+6) Run `cmake ../ && cmake --build . && ./BookstoreApp`
 
 ### Linux
 #### Debian/Ubuntu
